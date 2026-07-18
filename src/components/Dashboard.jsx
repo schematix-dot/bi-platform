@@ -9,11 +9,15 @@ function Dashboard() {
               <KPICard 
                 title="Revenue" 
                 value="$125,000" 
+                change="+12%"
+                isPositive={true}
               />
 
               <KPICard 
                 title="Customers"
                 value="4,872"
+                change="-3%"
+                isPositive={false}
               />
             
               <KPICard 

@@ -5,6 +5,7 @@
     width: 220px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .kpi-card h3 {
@@ -21,4 +22,22 @@
 
 .kpi-container {
     display: flex;
+}
+
+.kpi-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.change {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
 }
