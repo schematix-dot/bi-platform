@@ -1,4 +1,5 @@
 import {
+    ResponsiveContainer,
     LineChart,
     Line,
     XAxis,
@@ -15,7 +16,8 @@ function ChartSection(props) {
         <div className="chart-section">
             <h2>{props.title}</h2>
 
-            <LineChart width={500} height={300} data={props.data}>
+            <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={props.data}>
                 <CartesianGrid />
 
                 <XAxis dataKey="month" />
@@ -24,7 +26,8 @@ function ChartSection(props) {
 
                 <Tooltip />
                 <Line type="monotone" dataKey={props.dataKey} />
-            </LineChart>
+                </LineChart>
+            </ResponsiveContainer>
         </div>
     );
 }

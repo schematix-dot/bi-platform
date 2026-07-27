@@ -1,8 +1,15 @@
-.dashboard {
+.dashboard-grid {
     display: grid;
     gap: 30px;
 }
 
 .chart-container {
     width: 100%;
+    min-height: 400px;
+}
+
+.bottom-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
 }
