@@ -23,7 +23,7 @@ function ChartSection(props) {
                 <YAxis />
 
                 <Tooltip />
-                <Line type="monotone" dataKey="revenue" />
+                <Line type="monotone" dataKey={props.dataKey} />
             </LineChart>
         </div>
     );

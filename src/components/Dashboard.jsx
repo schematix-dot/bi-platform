@@ -2,6 +2,8 @@ import KPISection from "./KPISection";
 
 import ChartSection from "./ChartSection";
 
+import TableSection from "./TableSection";
+
 const revenueData = [
   {
     month: "Jan",
@@ -23,15 +25,21 @@ const revenueData = [
 
 function Dashboard() {
     return (
-        <section>
+        <section className="dashboard">
             <h2>Business Dashboard</h2>
 
             <KPISection />
             
-            <ChartSection 
+            <div className="chart-container">
+               <ChartSection 
               title="Revenue Trend"
               data={revenueData}
-            />
+              dataKey="revenue"
+              />
+            </div>
+           
+
+            <TableSection />
 
         </section>
     );
