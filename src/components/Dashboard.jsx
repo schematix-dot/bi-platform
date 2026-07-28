@@ -12,6 +12,8 @@ import DashboardCard from "./DashBoardCard";
 
 import "./TableSection.css";
 
+import "./ProductSection.css";
+
 const revenueData = [
   {
     month: "Jan",
@@ -47,7 +49,25 @@ const recentOrders = [
     customer: "Mike Davis",
     total: "$410"
   },
-]
+];
+
+const topProducts = [
+  {
+    id: 1,
+    name: "Analytics Pro",
+    sales: 540
+  },
+  {
+    id: 2,
+    name: "Dashboard Suite",
+    sales: 420
+  },
+  {
+    id: 3,
+    name: "Data Connector",
+    sales: 310
+  },
+];
 
 function Dashboard() {
     return (
@@ -76,7 +96,7 @@ function Dashboard() {
               </DashboardCard>
 
               <DashboardCard>
-                <ProductSection />
+                <ProductSection data={topProducts} />
               </DashboardCard>
               
             </div>

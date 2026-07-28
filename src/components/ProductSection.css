@@ -1,0 +1,18 @@
+.product-section {
+    background: white;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 12px;
+}
+
+.table-header,
+.product-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+}
+
+.product-list {
+    display: grid;
+    gap: 12px;
+}
