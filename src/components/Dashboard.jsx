@@ -14,6 +14,8 @@ import "./TableSection.css";
 
 import "./ProductSection.css";
 
+import FilterBar from "./FilterBar/FilterBar";
+
 const revenueData = [
   {
     month: "Jan",
@@ -72,7 +74,10 @@ const topProducts = [
 function Dashboard() {
     return (
         <section className="dashboard">
-          <h2 className="dashboard-title">Business Dashboard</h2>
+        <div className="dashboard-header">
+          <h2>Sales Dashboard</h2>
+          <FilterBar />
+        </div>
 
           <div className="dashboard-grid">
 
