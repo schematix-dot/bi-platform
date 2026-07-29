@@ -5,7 +5,7 @@ function ProductRow(props) {
         <div className="product-row">
             <span>{props.id}</span>
             <span>{props.name}</span>
-            <span>{props.sales}</span>
+            <span className="product-sales">{props.sales}</span>
         </div>
     );
 }

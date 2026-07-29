@@ -1,4 +1,5 @@
 .order-row {
+    display: grid;
     font-size: 14px;
     padding: 12px 0;
     border-bottom: 1px solid #eee;
@@ -11,17 +12,4 @@
 
 .order-total {
     font-weight: 600;
-    text-align: right;
-}
-
-.table-header,
-.order-row {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 16px;
-}
-
-.total-header,
-.order-total {
-    text-align: right;
 }
