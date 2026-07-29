@@ -16,3 +16,11 @@
     display: grid;
     gap: 12px;
 }
+
+.table-header {
+    font-weight: 600;
+    font-size: 14px;
+    color: #666;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+}

@@ -5,7 +5,7 @@ import ProductRow from "./ProductRow";
 function ProductSection(props) {
     return (
         <div className="product-section">
-            <h2>Top Products</h2>
+            <h2 className="section-title">Top Products</h2>
 
             <div className="table-header">
                 <span>ID</span>

@@ -72,7 +72,7 @@ const topProducts = [
 function Dashboard() {
     return (
         <section className="dashboard">
-          <h2>Business Dashboard</h2>
+          <h2 className="dashboard-title">Business Dashboard</h2>
 
           <div className="dashboard-grid">
 
@@ -82,7 +82,6 @@ function Dashboard() {
             <DashboardCard>
               <div className="chart-container">
                <ChartSection 
-              title="Revenue Trend"
               data={revenueData}
               dataKey="revenue"
               />

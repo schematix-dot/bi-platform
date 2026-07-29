@@ -5,7 +5,7 @@ import OrderRow from "./OrderRow";
 function TableSection(props) {
     return(
         <div className="table-section">
-            <h2>Recent Orders</h2>
+            <h2 className="section-title">Recent Orders</h2>
 
             <div className="table-header">
                 <span>Order</span>

@@ -1,6 +1,8 @@
 .order-row {
+    font-size: 14px;
     padding: 12px 0;
     border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
 }
 
 .order-row:hover {
@@ -8,5 +10,18 @@
 }
 
 .order-total {
-    font-weight: bold;
+    font-weight: 600;
+    text-align: right;
+}
+
+.table-header,
+.order-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 16px;
+}
+
+.total-header,
+.order-total {
+    text-align: right;
 }

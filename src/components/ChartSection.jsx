@@ -14,7 +14,7 @@ function ChartSection(props) {
 
     return (
         <div className="chart-section">
-            <h2>{props.title}</h2>
+            <h2 className="section-title">Revenue Trend</h2>
 
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={props.data}>

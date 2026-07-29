@@ -1,15 +1,27 @@
 .dashboard-grid {
     display: grid;
-    gap: 30px;
+    gap: 32px;
 }
 
 .chart-container {
-    width: 100%;
+    max-width: 900px;
     min-height: 400px;
+    margin: 0 auto;
 }
 
 .bottom-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 32px;
+}
+
+.dashboard-title {
+    text-align: center;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-align: left;
 }
