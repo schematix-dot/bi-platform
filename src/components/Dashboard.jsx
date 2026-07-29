@@ -16,6 +16,8 @@ import "./ProductSection.css";
 
 import FilterBar from "./FilterBar/FilterBar";
 
+import { useState } from "react";
+
 const revenueData = [
   {
     month: "Jan",
@@ -72,13 +74,29 @@ const topProducts = [
 ];
 
 function Dashboard() {
+
+    const [region, setRegion] = useState("All Regions");
+
+    const [dateRange, setDateRange] = useState("Last 30 Days");
+
+    const [category, setCategory] = useState("All Categories");
+
     return (
         <section className="dashboard">
         <div className="dashboard-header">
           <h2>Sales Dashboard</h2>
-          <FilterBar />
+          <FilterBar
+            region={region}
+            setRegion={setRegion}
+            dateRange={dateRange}
+            setDateRange={setDateRange}
+            category={category}
+            setCategory={setCategory}
+          />
         </div>
-
+        <p>{dateRange}</p>
+        <p>{region}</p>
+        <p>{category}</p>
           <div className="dashboard-grid">
 
             <div className="kpi-container">
