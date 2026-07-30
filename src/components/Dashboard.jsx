@@ -43,49 +43,96 @@ const recentOrders = [
     customer: "John Smith",
     total: 245,
     region: "North",
-    category: "Software"
+    category: "Software",
+    month: "Jan"
   },
   {
     id: 1002,
     customer: "Sarah Jones",
     total: 89,
     region: "West",
-    category: "Electronics"
+    category: "Electronics",
+    month: "Feb"
   },
   {
     id: 1003,
     customer: "Mike Davis",
     total: 410,
     region: "South",
-    category: "Services"
+    category: "Services",
+    month: "Mar"
   },
   {
     id: 1004,
     customer: "Barry Jones",
     total: 337,
     region: "South",
-    category: "Software"
+    category: "Software",
+    month: "Mar"
   },
   {
     id: 1005,
     customer: "Mike Owen",
     total: 235,
     region: "South",
-    category: "Eletronics"
+    category: "Eletronics",
+    month: "Apr"
   },
   {
     id: 1006,
     customer: "John Smith",
     total: 625,
     region: "North",
-    category: "Services"
+    category: "Services",
+    month: "Apr"
   },
   {
     id: 1007,
     customer: "Emily Granner",
     total: 634,
     region: "East",
-    category: "Services"
+    category: "Services",
+    month: "Mar"
+  },
+  {
+    id: 1008,
+    customer: "Barry Jones",
+    total: 634,
+    region: "South",
+    category: "Electronics",
+    month: "Mar"
+  },
+  {
+    id: 1009,
+    customer: "Alan Granner",
+    total: 634,
+    region: "East",
+    category: "Software",
+    month: "Jan"
+  },
+  {
+    id: 1010,
+    customer: "Emily Granner",
+    total: 634,
+    region: "East",
+    category: "Electronics",
+    month: "Feb"
+  },
+  {
+    id: 1011,
+    customer: "Gordon Gray",
+    total: 634,
+    region: "North",
+    category: "Services",
+    month: "Apr"
+  },
+  {
+    id: 1012,
+    customer: "Josh Bunny",
+    total: 634,
+    region: "East",
+    category: "Services",
+    month: "Feb"
   },
 ];
 
@@ -160,6 +207,24 @@ function Dashboard() {
   }
 ];
 
+const revenueByMonth = filteredOrders.reduce((acc, order) => {
+  if (!acc[order.month]) {
+    acc[order.month] = 0;
+  }
+
+  acc[order.month] += order.total;
+
+  return acc;
+}, {});
+
+const chartData = Object.entries(revenueByMonth).map(
+  ([month, revenue]) => ({
+    month,
+    revenue
+  })
+);
+
+
     return (
         <section className="dashboard">
         <div className="dashboard-header">
@@ -181,10 +246,7 @@ function Dashboard() {
             </div>
             <DashboardCard>
               <div className="chart-container">
-               <ChartSection 
-              data={revenueData}
-              dataKey="revenue"
-              />
+               <ChartSection chartData={chartData} />
               </div>
             </DashboardCard>
             

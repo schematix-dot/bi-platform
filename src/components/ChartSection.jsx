@@ -17,7 +17,7 @@ function ChartSection(props) {
             <h2 className="section-title">Revenue Trend</h2>
 
             <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={props.data}>
+                <LineChart data={props.chartData}>
                 <CartesianGrid />
 
                 <XAxis dataKey="month" />
@@ -25,7 +25,7 @@ function ChartSection(props) {
                 <YAxis />
 
                 <Tooltip />
-                <Line type="monotone" dataKey={props.dataKey} />
+                <Line type="monotone" dataKey="revenue" />
                 </LineChart>
             </ResponsiveContainer>
         </div>
