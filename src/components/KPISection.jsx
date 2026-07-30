@@ -1,6 +1,6 @@
 import KPICard from "./KPICard";
 
-function KPISection() {
+function KPISection({metrics}) {
     return(
         <div className="kpi-container">
               {metrics.map((metric) => (
@@ -16,31 +16,5 @@ function KPISection() {
     );
 }
 
-const metrics = [
-  {
-    title: "Revenue",
-    value: "$125,000",
-    change: "+12%",
-    isPositive: true,
-  },
-  {
-    title: "Customers",
-    value: "4,872",
-    change: "-3%",
-    isPositive: false,
-  },
-  {
-    title: "Growth",
-    value: "18.4%",
-    change: "+5%",
-    isPositive: true,
-  },
-  {
-    title: "Profit",
-    value: "$42,500",
-    change: "+8%",
-    isPositive: true,
-  }
-]
 
 export default KPISection;
