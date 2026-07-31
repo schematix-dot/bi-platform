@@ -41,6 +41,7 @@ const recentOrders = [
   {
     id: 1001,
     customer: "John Smith",
+    product: "Laptop",
     total: 245,
     region: "North",
     category: "Software",
@@ -49,6 +50,7 @@ const recentOrders = [
   {
     id: 1002,
     customer: "Sarah Jones",
+    product: "Webcam",
     total: 89,
     region: "West",
     category: "Electronics",
@@ -57,6 +59,7 @@ const recentOrders = [
   {
     id: 1003,
     customer: "Mike Davis",
+    product: "Monitor",
     total: 410,
     region: "South",
     category: "Services",
@@ -65,6 +68,7 @@ const recentOrders = [
   {
     id: 1004,
     customer: "Barry Jones",
+    product: "Laptop",
     total: 337,
     region: "South",
     category: "Software",
@@ -73,6 +77,7 @@ const recentOrders = [
   {
     id: 1005,
     customer: "Mike Owen",
+    product: "Mouse",
     total: 235,
     region: "South",
     category: "Eletronics",
@@ -81,6 +86,7 @@ const recentOrders = [
   {
     id: 1006,
     customer: "John Smith",
+    product: "Headset",
     total: 625,
     region: "North",
     category: "Services",
@@ -89,6 +95,7 @@ const recentOrders = [
   {
     id: 1007,
     customer: "Emily Granner",
+    product: "Headset",
     total: 634,
     region: "East",
     category: "Services",
@@ -97,6 +104,7 @@ const recentOrders = [
   {
     id: 1008,
     customer: "Barry Jones",
+    product: "Laptop",
     total: 634,
     region: "South",
     category: "Electronics",
@@ -105,6 +113,7 @@ const recentOrders = [
   {
     id: 1009,
     customer: "Alan Granner",
+    product: "Webcam",
     total: 634,
     region: "East",
     category: "Software",
@@ -113,6 +122,7 @@ const recentOrders = [
   {
     id: 1010,
     customer: "Emily Granner",
+    product: "Mouse",
     total: 634,
     region: "East",
     category: "Electronics",
@@ -121,6 +131,7 @@ const recentOrders = [
   {
     id: 1011,
     customer: "Gordon Gray",
+    product: "Keyboard",
     total: 634,
     region: "North",
     category: "Services",
@@ -129,28 +140,11 @@ const recentOrders = [
   {
     id: 1012,
     customer: "Josh Bunny",
+    product: "Monitor",
     total: 634,
     region: "East",
     category: "Services",
     month: "Feb"
-  },
-];
-
-const topProducts = [
-  {
-    id: 1,
-    name: "Analytics Pro",
-    sales: 540
-  },
-  {
-    id: 2,
-    name: "Dashboard Suite",
-    sales: 420
-  },
-  {
-    id: 3,
-    name: "Data Connector",
-    sales: 310
   },
 ];
 
@@ -224,6 +218,29 @@ const chartData = Object.entries(revenueByMonth).map(
   })
 );
 
+const revenueByProduct = filteredOrders.reduce((acc, order) => {
+  if (!acc[order.product]) {
+    acc[order.product] = 0;
+  }
+
+  acc[order.product] += order.total
+
+  return acc;
+}, {});
+
+const productData = Object.entries(revenueByProduct).map(
+  ([product, revenue]) => ({
+    product,
+    revenue
+  })
+);
+
+const topProducts = [...productData]
+  .sort((a, b) => b.revenue - a.revenue);
+
+const topFiveProducts = topProducts.slice(0, 5);
+
+console.log(topFiveProducts);
 
     return (
         <section className="dashboard">
@@ -257,7 +274,7 @@ const chartData = Object.entries(revenueByMonth).map(
               </DashboardCard>
 
               <DashboardCard>
-                <ProductSection data={topProducts} />
+                <ProductSection products={topFiveProducts} />
               </DashboardCard>
               
             </div>

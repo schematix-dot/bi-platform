@@ -3,6 +3,10 @@ import "./ProductSection.css";
 import ProductRow from "./ProductRow";
 
 function ProductSection(props) {
+
+  console.log(props);
+
+
     return (
         <div className="product-section">
             <h2 className="section-title">Top Products</h2>
@@ -14,12 +18,11 @@ function ProductSection(props) {
             </div>
 
             <div className="product-list">
-                {props.data.map((product) => (
+                {props.products.map((product) => (
                     <ProductRow 
-                        key={product.id}
-                        id={product.id}
-                        name={product.name}
-                        sales={product.sales}
+                        key={product.product}
+                        name={product.product}
+                        sales={product.revenue}
                     />
                 ))}
             </div>
