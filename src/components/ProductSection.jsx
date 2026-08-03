@@ -2,9 +2,19 @@ import "./ProductSection.css";
 
 import ProductRow from "./ProductRow";
 
+import EmptyState from "./EmptyState/EmptyState";
+
 function ProductSection(props) {
 
   console.log(props);
+
+    if (props.products.length === 0) {
+        return (
+            <div>
+                <EmptyState message="No products found" />
+            </div>
+        );
+    }
 
 
     return (

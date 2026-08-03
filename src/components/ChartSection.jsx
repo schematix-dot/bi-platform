@@ -10,7 +10,15 @@ import {
 
 import "./ChartSection.css";
 
+import EmptyState from "./EmptyState/EmptyState";
+
 function ChartSection(props) {
+
+    if (props.chartData.length === 0) {
+        return (
+            <EmptyState message="No data available" />
+        );
+    }
 
     return (
         <div className="chart-section">

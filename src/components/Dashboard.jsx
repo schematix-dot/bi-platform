@@ -18,6 +18,8 @@ import FilterBar from "./FilterBar/FilterBar";
 
 import { useState } from "react";
 
+import { formatCurrency } from "../utils/formatters";
+
 const revenueData = [
   {
     month: "Jan",
@@ -284,5 +286,7 @@ console.log(topFiveProducts);
         </section>
     );
 }
+
+console.log(formatCurrency(2500));
 
 export default Dashboard;
