@@ -6,8 +6,6 @@ import EmptyState from "./EmptyState/EmptyState";
 
 function ProductSection(props) {
 
-  console.log(props);
-
     if (props.products.length === 0) {
         return (
             <div>
@@ -18,11 +16,10 @@ function ProductSection(props) {
 
 
     return (
-        <div className="product-section">
+        <div className="product-section section-card">
             <h2 className="section-title">Top Products</h2>
 
-            <div className="table-header">
-                <span>ID</span>
+            <div className="product-header">
                 <span>Name</span>
                 <span>Sales</span>
             </div>

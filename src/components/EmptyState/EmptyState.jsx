@@ -1,6 +1,10 @@
+import "./EmptyState.css";
+
 function EmptyState(props) {
     return (
-        <div>{props.message}</div>
+        <div className="empty-state">
+            {props.message}
+        </div>
     )
 }
 

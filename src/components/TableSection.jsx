@@ -16,11 +16,11 @@ function TableSection(props) {
     }
 
     return(
-        <div className="table-section">
+        <div className="table-section section-card">
             <h2 className="section-title">Recent Orders</h2>
 
 
-            <div className="table-header">
+            <div className="order-header">
                 <span>Order</span>
                 <span>Customer</span>
                 <span>Total</span>

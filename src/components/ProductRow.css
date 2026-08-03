@@ -1,5 +1,7 @@
 .product-row {
     display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
     font-size: 14px;
     padding: 12px 0;
     border-bottom: 1px solid #eee;
@@ -12,4 +14,11 @@
 
 .product-sales {
     font-weight: 600;
+    text-align: right;
 }
+
+.product-name {
+    font-weight: 500;
+    color: #333;
+}
+

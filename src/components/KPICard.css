@@ -4,7 +4,6 @@
     padding: 20px;
     width: 220px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -14,10 +13,11 @@
     font-size: 18px;
 }
 
-.kpi-card p {
+.kpi-card p:first-of-type {
     font-size: 32px;
     font-weight: bold;
     margin-top: 15px;
+    margin-bottom: 0;
 }
 
 .kpi-container {
@@ -27,7 +27,7 @@
 }
 
 .kpi-card:hover {
-    transform: translateY(-15px);
+    transform: translateY(-4px);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
@@ -37,9 +37,9 @@
 }
 
 .positive {
-    color: green;
+    color: #16a34a;
 }
 
 .negative {
-    color: red;
+    color: #dc2626;
 }

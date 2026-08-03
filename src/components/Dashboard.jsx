@@ -264,7 +264,7 @@ console.log(topFiveProducts);
               <KPISection metrics={metrics} />
             </div>
             <DashboardCard>
-              <div className="chart-container">
+              <div className="chart-container section-card">
                <ChartSection chartData={chartData} />
               </div>
             </DashboardCard>

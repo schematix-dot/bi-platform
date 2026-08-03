@@ -5,14 +5,22 @@
     border-radius: 12px;
 }
 
-.table-header,
-.product-row {
+.product-header {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 20px;
+    grid-template-columns: 1fr 160px;
+    font-size: 14px;
+    font-weight: 600;
+    padding-bottom: 8px;
+    color: #666;
+    border-bottom: 1px solid #ddd;
 }
 
 .product-list {
     display: grid;
     gap: 12px;
+}
+
+
+.product-header span:last-child {
+    text-align: right;
 }
