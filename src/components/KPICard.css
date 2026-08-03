@@ -2,7 +2,7 @@
     background: white;
     border-radius: 12px;
     padding: 20px;
-    width: 220px;
+    width: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -42,4 +42,20 @@
 
 .negative {
     color: #dc2626;
+}
+
+@media (max-width: 1000px) {
+    .kpi-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .kpi-container {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-card {
+        width: auto;
+    }
 }

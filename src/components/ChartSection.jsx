@@ -24,15 +24,17 @@ function ChartSection(props) {
         <div className="chart-section">
             <h2 className="section-title">Revenue Trend</h2>
 
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={350}>
                 <LineChart data={props.chartData}>
-                <CartesianGrid />
+                <CartesianGrid strokeDasharray="3 3" />
 
                 <XAxis dataKey="month" />
 
-                <YAxis />
+                <YAxis 
+                    tickFormatter={(value) => `$${value / 1000}k`}
+                />
 
-                <Tooltip />
+                <Tooltip formatter={(value) => `$${value.toLocaleString()}`} />
                 <Line type="monotone" dataKey="revenue" />
                 </LineChart>
             </ResponsiveContainer>
