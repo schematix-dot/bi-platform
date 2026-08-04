@@ -8,6 +8,7 @@ function Header(props) {
 
                 <button className="login-button">
                     Login
+                    (coming soon...)
                 </button>
             </nav>
             <div className="hero">

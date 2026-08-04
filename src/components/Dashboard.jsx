@@ -1,156 +1,51 @@
 import KPISection from "./KPISection";
-
 import ChartSection from "./ChartSection";
-
 import TableSection from "./TableSection";
-
 import ProductSection from "./ProductSection";
-
 import "./Dashboard.css";
-
 import DashboardCard from "./DashBoardCard";
-
 import "./TableSection.css";
-
 import "./ProductSection.css";
-
 import FilterBar from "./FilterBar/FilterBar";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { formatCurrency } from "../utils/formatters";
+import { loadSuperstoreData } from "../services/dataService";
 
-const revenueData = [
-  {
-    month: "Jan",
-    revenue: 10000,
-  },
-  {
-    month: "Feb",
-    revenue: 15000,
-  },
-  {
-    month: "Mar",
-    revenue: 13000,
-  },
-  {
-    month: "Apr",
-    revenue: 22000,
-  },
-];
-
-const recentOrders = [
-  {
-    id: 1001,
-    customer: "John Smith",
-    product: "Laptop",
-    total: 245,
-    region: "North",
-    category: "Software",
-    month: "Jan"
-  },
-  {
-    id: 1002,
-    customer: "Sarah Jones",
-    product: "Webcam",
-    total: 89,
-    region: "West",
-    category: "Electronics",
-    month: "Feb"
-  },
-  {
-    id: 1003,
-    customer: "Mike Davis",
-    product: "Monitor",
-    total: 410,
-    region: "South",
-    category: "Services",
-    month: "Mar"
-  },
-  {
-    id: 1004,
-    customer: "Barry Jones",
-    product: "Laptop",
-    total: 337,
-    region: "South",
-    category: "Software",
-    month: "Mar"
-  },
-  {
-    id: 1005,
-    customer: "Mike Owen",
-    product: "Mouse",
-    total: 235,
-    region: "South",
-    category: "Eletronics",
-    month: "Apr"
-  },
-  {
-    id: 1006,
-    customer: "John Smith",
-    product: "Headset",
-    total: 625,
-    region: "North",
-    category: "Services",
-    month: "Apr"
-  },
-  {
-    id: 1007,
-    customer: "Emily Granner",
-    product: "Headset",
-    total: 634,
-    region: "East",
-    category: "Services",
-    month: "Mar"
-  },
-  {
-    id: 1008,
-    customer: "Barry Jones",
-    product: "Laptop",
-    total: 634,
-    region: "South",
-    category: "Electronics",
-    month: "Mar"
-  },
-  {
-    id: 1009,
-    customer: "Alan Granner",
-    product: "Webcam",
-    total: 634,
-    region: "East",
-    category: "Software",
-    month: "Jan"
-  },
-  {
-    id: 1010,
-    customer: "Emily Granner",
-    product: "Mouse",
-    total: 634,
-    region: "East",
-    category: "Electronics",
-    month: "Feb"
-  },
-  {
-    id: 1011,
-    customer: "Gordon Gray",
-    product: "Keyboard",
-    total: 634,
-    region: "North",
-    category: "Services",
-    month: "Apr"
-  },
-  {
-    id: 1012,
-    customer: "Josh Bunny",
-    product: "Monitor",
-    total: 634,
-    region: "East",
-    category: "Services",
-    month: "Feb"
-  },
-];
+import {
+    calculateTotalRevenue,
+    calculateTotalProfit,
+    calculateTotalUnits,
+    calculateTotalOrders,
+    calculateTotalCustomers,
+    getCurrentMonth,
+    getPreviousMonth,
+    getOrdersForMonth,
+    calculateKPIChanges,
+    calculateRevenueByMonth,
+    calculateTopProducts
+} from "../utils/analytics";
 
 function Dashboard() {
+
+  const [orders, setOrders] = useState([]);
+
+useEffect(() => {
+    loadSuperstoreData()
+        .then((data) => {
+            setOrders(data);
+        });
+}, []);
+
+const regions = [
+  "All Regions",
+  ...new Set(orders.map(order => order.region))
+];
+
+const categories = [
+  "All Categories",
+  ...new Set(orders.map(order => order.category))
+];
 
     const [region, setRegion] = useState("All Regions");
 
@@ -158,7 +53,7 @@ function Dashboard() {
 
   const [category, setCategory] = useState("All Categories");
 
-  const filteredOrders = recentOrders.filter((order) => {
+  const filteredOrders = orders.filter((order) => {
     const matchesRegion = 
       region === "All Regions" || order.region === region;
 
@@ -169,92 +64,89 @@ function Dashboard() {
   return matchesRegion && matchesCategory;
 });
 
-  const totalRevenue = filteredOrders.reduce((total, order)=> {
-    return total + order.total;
-  }, 0);
+const currentMonth = getCurrentMonth(filteredOrders);
+const previousMonth = getPreviousMonth(currentMonth);
 
-   const totalOrders = filteredOrders.length;
+const currentMonthOrders = getOrdersForMonth(
+    filteredOrders,
+    currentMonth
+);
 
-   const totalCustomers = new Set(
-    filteredOrders.map(order => order.customer)
-   ).size;
+const previousMonthOrders = getOrdersForMonth(
+    filteredOrders,
+    previousMonth
+);
+
+const {
+    revenueChange,
+    ordersChange,
+    customersChange,
+    unitsChange,
+    profitChange
+} = calculateKPIChanges(
+    currentMonthOrders,
+    previousMonthOrders
+);
+
+  const totalRevenue = calculateTotalRevenue(filteredOrders);
+  const totalProfit = calculateTotalProfit(filteredOrders);
+  const totalUnits = calculateTotalUnits(filteredOrders);
+  const totalOrders = calculateTotalOrders(filteredOrders);
+  const totalCustomers = calculateTotalCustomers(filteredOrders);
 
   const metrics = [
-  {
+{
     title: "Revenue",
     value: `$${totalRevenue.toLocaleString()}`,
-    isPositive: true,
-  },
-  {
+    change: `${revenueChange.toFixed(1)}%`,
+    isPositive: revenueChange >= 0
+},
+{
     title: "Customers",
     value: totalCustomers.toLocaleString(),
-    isPositive: false,
-  },
-  {
+    change: `${customersChange.toFixed(1)}%`,
+    isPositive: customersChange >= 0
+},
+{
     title: "Orders",
     value: totalOrders.toLocaleString(),
-    isPositive: true,
-  },
-  {
+    change: `${ordersChange.toFixed(1)}%`,
+    isPositive: ordersChange >= 0
+},
+{
     title: "Profit",
-    value: "$42,500",
-    change: "+8%",
-    isPositive: true,
-  }
+    value: `$${Math.round(totalProfit).toLocaleString()}`,
+    change: `${profitChange.toFixed(1)}%`,
+    isPositive: profitChange >= 0
+},
+{
+    title: "Units Sold",
+    value: totalUnits.toLocaleString(),
+    change: `${unitsChange.toFixed(1)}%`,
+    isPositive: unitsChange >= 0
+}
 ];
 
-const revenueByMonth = filteredOrders.reduce((acc, order) => {
-  if (!acc[order.month]) {
-    acc[order.month] = 0;
-  }
+const chartData = calculateRevenueByMonth(filteredOrders);
 
-  acc[order.month] += order.total;
-
-  return acc;
-}, {});
-
-const chartData = Object.entries(revenueByMonth).map(
-  ([month, revenue]) => ({
-    month,
-    revenue
-  })
+const topProducts = calculateTopProducts(
+    filteredOrders,
+    5
 );
-
-const revenueByProduct = filteredOrders.reduce((acc, order) => {
-  if (!acc[order.product]) {
-    acc[order.product] = 0;
-  }
-
-  acc[order.product] += order.total
-
-  return acc;
-}, {});
-
-const productData = Object.entries(revenueByProduct).map(
-  ([product, revenue]) => ({
-    product,
-    revenue
-  })
-);
-
-const topProducts = [...productData]
-  .sort((a, b) => b.revenue - a.revenue);
-
-const topFiveProducts = topProducts.slice(0, 5);
-
-console.log(topFiveProducts);
 
     return (
         <section className="dashboard">
         <div className="dashboard-header">
           <h2>Sales Dashboard</h2>
           <FilterBar
-            region={region}
-            setRegion={setRegion}
-            dateRange={dateRange}
-            setDateRange={setDateRange}
-            category={category}
-            setCategory={setCategory}
+              region={region}
+              setRegion={setRegion}
+              dateRange={dateRange}
+              setDateRange={setDateRange}
+              category={category}
+              setCategory={setCategory}
+              regions={regions}
+              categories={categories}
           />
         </div>
 
@@ -276,7 +168,7 @@ console.log(topFiveProducts);
               </DashboardCard>
 
               <DashboardCard>
-                <ProductSection products={topFiveProducts} />
+                <ProductSection products={topProducts} />
               </DashboardCard>
               
             </div>
@@ -286,7 +178,5 @@ console.log(topFiveProducts);
         </section>
     );
 }
-
-console.log(formatCurrency(2500));
 
 export default Dashboard;

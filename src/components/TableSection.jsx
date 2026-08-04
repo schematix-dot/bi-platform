@@ -30,9 +30,9 @@ function TableSection(props) {
                 {props.data.map((order) => (
                     <OrderRow
                         key={order.id}
-                        id={order.id}
+                        id={order.orderId}
                         customer={order.customer}
-                        total={order.total}
+                        total={order.sales}
                     />
                 ))}
             </div>

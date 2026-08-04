@@ -21,11 +21,11 @@ function FilterBar(props) {
                     value={props.region}
                     onChange={(e) => props.setRegion(e.target.value)}
                 >
-                    <option>All Regions</option>
-                    <option>North</option>
-                    <option>South</option>
-                    <option>East</option>
-                    <option>West</option>
+                    {props.regions.map((region) => (
+                        <option key={region}>
+                            {region}
+                        </option>
+                    ))}
                 </select>
             </div>
 
@@ -35,10 +35,11 @@ function FilterBar(props) {
                     value={props.category}
                     onChange={(e) => props.setCategory(e.target.value)}
                 >
-                    <option>All Categories</option>
-                    <option>Electronics</option>
-                    <option>Software</option>
-                    <option>Services</option>
+                    {props.categories.map((category) => (
+                        <option key={category}>
+                            {category}
+                        </option>
+                    ))}
                 </select>
             </div>
 
