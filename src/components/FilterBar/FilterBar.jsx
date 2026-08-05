@@ -9,9 +9,10 @@ function FilterBar(props) {
                     value={props.dateRange}
                     onChange={(e) => props.setDateRange(e.target.value)}
                 >
-                 <option>Last 7 Days</option>
-                 <option>Last 30 Days</option>
+                 <option>All Time</option>
+                 <option>Year to Date</option>
                  <option>Last 90 Days</option>
+                 <option>Last 30 Days</option>
                 </select>
             </div>
 

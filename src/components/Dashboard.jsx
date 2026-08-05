@@ -7,6 +7,7 @@ import DashboardCard from "./DashBoardCard";
 import "./TableSection.css";
 import "./ProductSection.css";
 import FilterBar from "./FilterBar/FilterBar";
+import EmptyState from "./EmptyState/EmptyState";
 
 import { useEffect, useState } from "react";
 
@@ -29,11 +30,19 @@ import {
 function Dashboard() {
 
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
 useEffect(() => {
     loadSuperstoreData()
         .then((data) => {
             setOrders(data);
+        })
+        .catch((error) => {
+            setError(error);
+        })
+        .finally(() => {
+            setLoading(false);
         });
 }, []);
 
@@ -47,11 +56,33 @@ const categories = [
   ...new Set(orders.map(order => order.category))
 ];
 
-    const [region, setRegion] = useState("All Regions");
-
+  const [region, setRegion] = useState("All Regions");
   const [dateRange, setDateRange] = useState("Last 30 Days");
-
   const [category, setCategory] = useState("All Categories");
+
+  const latestDate = orders.length
+    ? Math.max(...orders.map(order => order.date))
+    : new Date();
+
+  const today = new Date(latestDate);
+  const startDate = new Date(today);
+
+  if (dateRange === "Last 30 Days") {
+      startDate.setDate(today.getDate() - 30);
+  }
+
+  if (dateRange === "Last 90 Days") {
+      startDate.setDate(today.getDate() - 90);
+  }
+
+  if (dateRange === "Year to Date") {
+      startDate.setMonth(0);
+      startDate.setDate(1);
+  }
+
+  if (dateRange === "All Time") {
+      startDate.setFullYear(2000);
+  }
 
   const filteredOrders = orders.filter((order) => {
     const matchesRegion = 
@@ -59,10 +90,27 @@ const categories = [
 
     const matchesCategory =
       category === "All Categories" || order.category === category;
+
+    const matchesDate =
+      order.date >= startDate;
       
 
-  return matchesRegion && matchesCategory;
+  return (
+    matchesRegion && 
+    matchesCategory && 
+    matchesDate
+  );
 });
+
+if (loading) {
+    return <h2>Loading dashboard...</h2>;
+}
+
+if (filteredOrders.length === 0) {
+    return (
+        <EmptyState message="No data available" />
+    );
+}
 
 const currentMonth = getCurrentMonth(filteredOrders);
 const previousMonth = getPreviousMonth(currentMonth);
@@ -97,32 +145,32 @@ const {
   const metrics = [
 {
     title: "Revenue",
-    value: `$${totalRevenue.toLocaleString()}`,
-    change: `${revenueChange.toFixed(1)}%`,
+    value: totalRevenue,
+    change: revenueChange,
     isPositive: revenueChange >= 0
 },
 {
     title: "Customers",
-    value: totalCustomers.toLocaleString(),
-    change: `${customersChange.toFixed(1)}%`,
+    value: totalCustomers,
+    change: customersChange,
     isPositive: customersChange >= 0
 },
 {
     title: "Orders",
-    value: totalOrders.toLocaleString(),
-    change: `${ordersChange.toFixed(1)}%`,
+    value: totalOrders,
+    change: ordersChange,
     isPositive: ordersChange >= 0
 },
 {
     title: "Profit",
-    value: `$${Math.round(totalProfit).toLocaleString()}`,
-    change: `${profitChange.toFixed(1)}%`,
+    value: totalProfit,
+    change: profitChange,
     isPositive: profitChange >= 0
 },
 {
     title: "Units Sold",
-    value: totalUnits.toLocaleString(),
-    change: `${unitsChange.toFixed(1)}%`,
+    value: totalUnits,
+    change: unitsChange,
     isPositive: unitsChange >= 0
 }
 ];
@@ -133,6 +181,17 @@ const topProducts = calculateTopProducts(
     filteredOrders,
     5
 );
+
+if (filteredOrders.length === 0) {
+    return (
+        <section className="dashboard">
+            <h2>No data available</h2>
+            <p>
+                Try adjusting your filters to see results.
+            </p>
+        </section>
+    );
+}
 
     return (
         <section className="dashboard">
