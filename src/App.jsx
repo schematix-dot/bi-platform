@@ -1,16 +1,23 @@
-import Header from "./components/Header";
+import { Routes, Route } from "react-router-dom";
+
+import Layout from "./components/Layout/Layout";
 import Dashboard from "./components/Dashboard";
+
 
 function App() {
   return (
-    <>
-      <Header
-        title="Insight BI"
-        subtitle="Built by Thomas Somers"
-        description="Making data-driven decisions easier."
-      />
-      <Dashboard />
-    </>
+    <Layout>
+
+      <Routes>
+
+        <Route
+          path="/"
+          element={<Dashboard />}
+        />
+
+      </Routes>
+
+    </Layout>
   );
 }
 
